@@ -1,0 +1,263 @@
+/* Секция проектов */
+.projects {
+  position: relative;
+}
+
+/* Фильтры */
+.project-filters {
+  display: flex;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 20px;
+
+  margin-bottom: 60px;
+}
+
+/* Кнопка фильтра */
+.filter-btn {
+  padding: 14px 28px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  color: var(--text-color);
+
+  transition: 0.3s ease;
+
+  font-weight: 600;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* Активный фильтр */
+.active-filter {
+  background: linear-gradient(
+    135deg,
+    var(--accent-color),
+    var(--secondary-color)
+  );
+
+  color: white;
+}
+
+/* Grid проектов */
+.projects-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 30px;
+}
+
+/* Карточка */
+.project-card {
+  overflow: hidden;
+
+  transition: 0.3s ease;
+
+  &:hover {
+    transform: translateY(-12px);
+  }
+}
+
+/* Изображение */
+.project-image {
+  position: relative;
+
+  height: 250px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.4),
+    rgba(6, 182, 212, 0.4)
+  );
+
+  overflow: hidden;
+}
+
+/* Overlay */
+.project-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: rgba(15, 23, 42, 0.8);
+
+  opacity: 0;
+
+  transition: 0.3s ease;
+}
+
+/* Hover overlay */
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+/* Ссылки */
+.project-links {
+  display: flex;
+
+  gap: 20px;
+
+  a {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--card-bg);
+
+    color: var(--text-color);
+
+    font-size: 1.2rem;
+
+    transition: 0.3s ease;
+
+    border: 1px solid
+      var(--border-color);
+
+    &:hover {
+      transform: scale(1.1);
+
+      background: linear-gradient(
+        135deg,
+        var(--accent-color),
+        var(--secondary-color)
+      );
+
+      color: white;
+    }
+  }
+}
+
+/* Контент */
+.project-content {
+  padding: 30px;
+
+  h3 {
+    font-size: 1.5rem;
+
+    margin-bottom: 15px;
+
+    color: var(--text-color);
+  }
+
+  p {
+    line-height: 1.7;
+
+    opacity: 0.8;
+
+    margin-bottom: 25px;
+
+    color: var(--text-color);
+  }
+}
+
+/* Категория */
+.project-category {
+  display: inline-block;
+
+  margin-bottom: 20px;
+
+  padding: 8px 16px;
+
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  color: var(--secondary-color);
+
+  font-size: 0.9rem;
+
+  font-weight: 700;
+}
+
+/* Технологии */
+.project-tech {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 12px;
+
+  margin-bottom: 25px;
+
+  span {
+    padding: 10px 14px;
+
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.05);
+
+    color: var(--text-color);
+
+    font-size: 0.9rem;
+  }
+}
+
+/* Кнопка */
+.project-btn {
+  width: 100%;
+
+  padding: 14px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  background: linear-gradient(
+    135deg,
+    var(--accent-color),
+    var(--secondary-color)
+  );
+
+  color: white;
+
+  font-weight: 700;
+
+  transition: 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* Планшеты */
+@media (max-width: 992px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 768px) {
+  .project-content {
+    padding: 25px;
+  }
+
+  .project-image {
+    height: 220px;
+  }
+}

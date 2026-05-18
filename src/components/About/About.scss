@@ -1,0 +1,209 @@
+/* Секция About */
+.about {
+  position: relative;
+}
+
+/* Заголовок секции */
+.section-header {
+  text-align: center;
+
+  margin-bottom: 80px;
+}
+
+/* Подзаголовок */
+.section-subtitle {
+  color: var(--secondary-color);
+
+  font-weight: 700;
+
+  letter-spacing: 3px;
+
+  margin-bottom: 20px;
+}
+
+/* Заголовок */
+.section-title {
+  font-size: 3rem;
+
+  max-width: 800px;
+
+  margin: 0 auto;
+
+  line-height: 1.3;
+
+  color: var(--text-color);
+}
+
+/* Grid layout */
+.about-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 30px;
+
+  margin-bottom: 60px;
+}
+
+/* Правая часть */
+.about-info {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 30px;
+}
+
+/* Карточки */
+.about-card {
+  padding: 40px;
+
+  transition: 0.3s ease;
+
+  &:hover {
+    transform: translateY(-10px);
+  }
+
+  h3 {
+    font-size: 1.5rem;
+
+    margin-bottom: 25px;
+
+    color: var(--text-color);
+  }
+
+  p {
+    line-height: 1.8;
+
+    opacity: 0.85;
+
+    margin-bottom: 20px;
+
+    color: var(--text-color);
+  }
+}
+
+/* Список навыков */
+.skills-list {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 15px;
+}
+
+/* Badge навыка */
+.skill-badge {
+  padding: 12px 20px;
+
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  border: 1px solid
+    var(--border-color);
+
+  color: var(--text-color);
+
+  transition: 0.3s ease;
+
+  &:hover {
+    background: linear-gradient(
+      135deg,
+      var(--accent-color),
+      var(--secondary-color)
+    );
+
+    transform: translateY(-4px);
+
+    color: white;
+  }
+}
+
+/* Список */
+.about-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+
+  padding-left: 20px;
+
+  li {
+    line-height: 1.6;
+
+    color: var(--text-color);
+  }
+}
+
+/* Статистика */
+.stats-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 30px;
+}
+
+/* Карточка статистики */
+.stat-card {
+  padding: 40px;
+
+  text-align: center;
+
+  transition: 0.3s ease;
+
+  &:hover {
+    transform: translateY(-10px);
+  }
+
+  h3 {
+    font-size: 3rem;
+
+    margin-bottom: 15px;
+
+    background: linear-gradient(
+      135deg,
+      var(--accent-color),
+      var(--secondary-color)
+    );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color:
+      transparent;
+  }
+
+  p {
+    opacity: 0.8;
+
+    color: var(--text-color);
+  }
+}
+
+/* Планшеты */
+@media (max-width: 992px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2.2rem;
+  }
+
+  .about-card {
+    padding: 30px;
+  }
+
+  .stat-card {
+    padding: 30px;
+  }
+}

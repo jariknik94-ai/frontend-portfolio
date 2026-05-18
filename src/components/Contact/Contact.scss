@@ -1,0 +1,146 @@
+/* Секция контактов */
+.contact {
+  position: relative;
+}
+
+/* Grid layout */
+.contact-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1.2fr;
+
+  gap: 40px;
+}
+
+/* Левая часть */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+
+  gap: 25px;
+}
+
+/* Карточка */
+.contact-card {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+
+  padding: 30px;
+
+  transition: 0.3s ease;
+
+  &:hover {
+    transform: translateY(-8px);
+  }
+
+  h3 {
+    margin-bottom: 10px;
+  }
+
+  p {
+    opacity: 0.8;
+  }
+}
+
+/* Иконка */
+.contact-icon {
+  width: 70px;
+  height: 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 20px;
+
+  background: linear-gradient(
+    135deg,
+    var(--accent-color),
+    var(--secondary-color)
+  );
+
+  font-size: 1.5rem;
+
+  flex-shrink: 0;
+}
+
+/* Форма */
+.contact-form {
+  padding: 40px;
+}
+
+/* Группа формы */
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 25px;
+
+  label {
+    margin-bottom: 12px;
+
+    font-weight: 600;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+
+    padding: 16px 18px;
+
+    border: 1px solid
+      rgba(255, 255, 255, 0.08);
+
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    color: white;
+
+    font-size: 1rem;
+
+    outline: none;
+
+    transition: 0.3s ease;
+
+    &:focus {
+      border-color:
+        var(--secondary-color);
+
+      box-shadow: 0 0 20px
+        rgba(6, 182, 212, 0.2);
+    }
+  }
+
+  textarea {
+    resize: none;
+  }
+}
+
+/* Ошибка */
+.error-text {
+  color: #f87171;
+
+  margin-top: 10px;
+
+  font-size: 0.9rem;
+}
+
+/* Телефоны */
+@media (max-width: 992px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-form {
+    padding: 30px 25px;
+  }
+
+  .contact-card {
+    padding: 25px;
+  }
+}

@@ -1,0 +1,344 @@
+/* 
+   CSS VARIABLES
+ */
+
+/* Светлая тема */
+:root {
+  --bg-color: #f8fafc;
+
+  --card-bg: rgba(255, 255, 255, 0.7);
+
+  --text-color: #0f172a;
+
+  --accent-color: #8b5cf6;
+
+  --secondary-color: #06b6d4;
+
+  --border-color: rgba(15, 23, 42, 0.08);
+
+  --shadow-color: rgba(15, 23, 42, 0.08);
+}
+
+/* Темная тема */
+:root.dark-theme {
+  --bg-color: #020617;
+
+  --card-bg: rgba(255, 255, 255, 0.05);
+
+  --text-color: #ffffff;
+
+  --accent-color: #8b5cf6;
+
+  --secondary-color: #06b6d4;
+
+  --border-color: rgba(255, 255, 255, 0.08);
+
+  --shadow-color: rgba(0, 0, 0, 0.35);
+}
+
+/* 
+   RESET
+ */
+
+* {
+  margin: 0;
+
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+/* 
+   HTML / BODY
+ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+
+  min-height: 100vh;
+
+  overflow-x: hidden;
+
+  font-family: "Inter", sans-serif;
+
+  background: var(--bg-color);
+
+  color: var(--text-color);
+
+  transition:
+    background 0.4s ease,
+    color 0.4s ease;
+}
+
+/* 
+   CONTAINER
+ */
+
+.container {
+  width: 100%;
+
+  max-width: 1300px;
+
+  margin: 0 auto;
+
+  padding: 0 20px;
+}
+
+/* 
+   SECTIONS
+ */
+
+section {
+  position: relative;
+
+  padding: 120px 0;
+}
+
+/* 
+   GLASSMORPHISM
+ */
+
+.glass-card {
+  background: var(--card-bg);
+
+  backdrop-filter: blur(20px);
+
+  border: 1px solid var(--border-color);
+
+  box-shadow: 0 10px 30px
+    var(--shadow-color);
+
+  border-radius: 24px;
+}
+
+/* 
+   BUTTONS
+ */
+
+.btn {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  padding: 16px 28px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition: 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(
+    135deg,
+    var(--accent-color),
+    var(--secondary-color)
+  );
+
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-4px);
+}
+
+/* 
+   TITLES
+ */
+
+.section-header {
+  text-align: center;
+
+  margin-bottom: 70px;
+}
+
+.section-subtitle {
+  color: var(--secondary-color);
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  margin-bottom: 15px;
+}
+
+.section-title {
+  font-size: 3rem;
+
+  line-height: 1.2;
+}
+
+/* 
+   TRANSITIONS
+ */
+
+button,
+a,
+input,
+textarea,
+.project-card,
+.glass-card {
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* 
+   REVEAL
+ */
+
+.reveal {
+  opacity: 0;
+
+  transform: translateY(40px);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+
+  transform: translateY(0);
+}
+
+/* 
+   FLOATING BACKGROUND
+ */
+
+/* 
+   GLOBAL FLOATING BACKGROUND
+ */
+
+body::before,
+body::after {
+  content: "";
+
+  position: fixed;
+
+  width: 700px;
+  height: 700px;
+
+  border-radius: 50%;
+
+  filter: blur(140px);
+
+  z-index: -2;
+
+  opacity: 0.28;
+
+  pointer-events: none;
+}
+
+/* Верхний glow */
+body::before {
+  top: -200px;
+  left: -200px;
+
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.9),
+    transparent 70%
+  );
+}
+
+/* Нижний glow */
+body::after {
+  bottom: -250px;
+  right: -200px;
+
+  background: radial-gradient(
+    circle,
+    rgba(6, 182, 212, 0.9),
+    transparent 70%
+  );
+}
+
+/* Первый glow */
+body::before {
+  top: -150px;
+  left: -150px;
+
+  background: #8b5cf6;
+}
+
+/* Второй glow */
+body::after {
+  bottom: -150px;
+  right: -150px;
+
+  background: #06b6d4;
+}
+
+/* 
+   SCROLLBAR
+ */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--accent-color),
+    var(--secondary-color)
+  );
+
+  border-radius: 20px;
+}
+
+/* Дополнительный фон */
+body {
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(139, 92, 246, 0.12),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(6, 182, 212, 0.12),
+      transparent 35%
+    ),
+    var(--bg-color);
+}
+
+/* Все секции прозрачные */
+section {
+  background: transparent;
+}
+
+
+/* 
+   MOBILE
+ */
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2.3rem;
+  }
+
+  section {
+    padding: 90px 0;
+  }
+}
