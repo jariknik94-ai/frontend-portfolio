@@ -1,3 +1,6 @@
+// EmailJS
+import emailjs from "@emailjs/browser";
+
 // React hooks
 import { useState } from "react";
 
@@ -86,18 +89,34 @@ function Contact() {
   };
 
   // Отправка формы
-  const handleSubmit = (
+  const handleSubmit = async (
     event: React.FormEvent
   ) => {
-    event.preventDefault();
+  event.preventDefault();
 
-    // Проверяем форму
-    if (validateForm()) {
-      console.log(formData);
+  // Проверяем форму
+  if (validateForm()) {
+    try {
+      // Отправка EmailJS
+      await emailjs.send(
+        "service_5i9ioea",
+        "template_dzbtanj",
+        {
+          from_name: formData.name,
 
-      // Временное сообщение
+          from_email:
+            formData.email,
+
+          message:
+            formData.message,
+        },
+
+        "E-0vZatkoqTBF5aRL"
+      );
+
+      // Успешная отправка
       alert(
-        "Форма успешно отправлена!"
+        "Сообщение успешно отправлено!"
       );
 
       // Очистка формы
@@ -106,8 +125,15 @@ function Contact() {
         email: "",
         message: "",
       });
+    } catch (error) {
+      console.error(error);
+
+      alert(
+        "Ошибка отправки сообщения"
+      );
     }
-  };
+  }
+};
 
   return (
     <section

@@ -1,193 +1,137 @@
-// React hooks
+// React hooks для состояния и эффектов
 import { useEffect, useState } from "react";
 
-// Иконки
-import {
-  FaBars,
-  FaTimes,
-} from "react-icons/fa";
+// Иконки бургер-меню
+import { FaBars, FaTimes } from "react-icons/fa";
 
-// Theme toggle
+// Переключатель темы (dark/light)
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 
-// Стили
+// Стили компонента
 import "./Navbar.scss";
 
-// Компонент Navbar
+/**
+ * Navbar — навигационная панель сайта
+ * Отвечает за:
+ * - навигацию по секциям
+ * - активную подсветку раздела (scroll spy)
+ * - мобильное меню
+ */
 function Navbar() {
-  // Состояние мобильного меню
-  const [mobileMenu, setMobileMenu] =
-    useState(false);
 
-  // Состояние скролла
-  const [scrolled, setScrolled] =
-    useState(false);
+  //  STATE 
 
-  // Активная секция
-  const [activeSection, setActiveSection] =
-    useState("home");
+  // Открыто ли мобильное меню
+  const [mobileMenu, setMobileMenu] = useState(false);
 
-  // Навигационные ссылки
+  // Был ли скролл страницы (для эффекта blur/фон)
+  const [scrolled, setScrolled] = useState(false);
+
+  // Активная секция страницы (scroll spy)
+  const [activeSection, setActiveSection] = useState("home");
+
+  //  НАВИГАЦИЯ 
   const navLinks = [
-    {
-      id: "home",
-      label: "Главная",
-    },
-
-    {
-      id: "about",
-      label: "Обо мне",
-    },
-
-    {
-      id: "skills",
-      label: "Навыки",
-    },
-
-    {
-      id: "projects",
-      label: "Проекты",
-    },
-
-    {
-      id: "contact",
-      label: "Контакты",
-    },
+    { id: "home", label: "Главная" },
+    { id: "about", label: "Обо мне" },
+    { id: "skills", label: "Навыки" },
+    { id: "projects", label: "Проекты" },
+    { id: "contact", label: "Контакты" },
   ];
 
-  // Отслеживание скролла
+  //  SCROLL EFFECT (blur navbar) 
   useEffect(() => {
     const handleScroll = () => {
-      // Проверяем позицию скролла
       setScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener(
-      "scroll",
-      handleScroll
-    );
-
-    return () => {
-      window.removeEventListener(
-        "scroll",
-        handleScroll
-      );
-    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Отслеживание активной секции
+  //  SCROLL SPY (активная секция) 
   useEffect(() => {
-    const sections =
-      document.querySelectorAll("section");
+    const sections = document.querySelectorAll("section");
 
     const handleActiveSection = () => {
+      const scrollY = window.scrollY;
+
       sections.forEach((section) => {
-        // Текущая позиция скролла
-        const top = window.scrollY;
+        const id = section.getAttribute("id");
+        const offsetTop = section.offsetTop - 150;
+        const height = section.offsetHeight;
 
-        // Смещение секции
-        const offset =
-          section.offsetTop - 150;
-
-        // Высота секции
-        const height =
-          section.offsetHeight;
-
-        // Получаем id секции
-        const id =
-          section.getAttribute("id");
-
-        // Проверяем активную секцию
         if (
-          top >= offset &&
-          top < offset + height &&
-          id
+          id &&
+          scrollY >= offsetTop &&
+          scrollY < offsetTop + height
         ) {
           setActiveSection(id);
         }
       });
     };
 
-    window.addEventListener(
-      "scroll",
-      handleActiveSection
-    );
+    window.addEventListener("scroll", handleActiveSection);
+    return () => window.removeEventListener("scroll", handleActiveSection);
+  }, []);
 
-    return () => {
-      window.removeEventListener(
-        "scroll",
-        handleActiveSection
-      );
+  //  Закрытие мобильного меню по ESC 
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMobileMenu(false);
+      }
     };
+
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
   return (
     <nav
-      className={`navbar ${
-        scrolled
-          ? "navbar-scrolled"
-          : ""
-      }`}
+      className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}
+      aria-label="Основная навигация"
     >
       <div className="container navbar-container">
-        {/* Логотип */}
-        <a
-          href="#home"
-          className="logo"
-        >
-          Yaroslav
-          <span>Dev</span>
+
+        {/*  LOGO  */}
+        <a href="#home" className="logo">
+          Yaroslav<span>Dev</span>
         </a>
 
-        {/* Desktop menu */}
-        <div
-          className={`nav-links ${
-            mobileMenu
-              ? "mobile-active"
-              : ""
-          }`}
-        >
+        {/*  NAV LINKS  */}
+        <div className={`nav-links ${mobileMenu ? "mobile-active" : ""}`}>
+
           {navLinks.map((link) => (
             <a
               key={link.id}
               href={`#${link.id}`}
-              className={
-                activeSection ===
-                link.id
-                  ? "active-link"
-                  : ""
-              }
-              onClick={() =>
-                setMobileMenu(false)
-              }
+              className={activeSection === link.id ? "active-link" : ""}
+              onClick={() => setMobileMenu(false)}
             >
               {link.label}
             </a>
           ))}
+
         </div>
 
-        {/* Правая часть */}
+        {/*  RIGHT SIDE  */}
         <div className="navbar-right">
-          {/* Переключение темы */}
+
+          {/* Переключатель темы */}
           <ThemeToggle />
 
-          {/* Mobile button */}
+          {/* Mobile menu button */}
           <button
             className="menu-btn"
             aria-label="Открыть меню"
-            onClick={() =>
-              setMobileMenu(
-                !mobileMenu
-              )
-            }
+            onClick={() => setMobileMenu(!mobileMenu)}
           >
-            {mobileMenu ? (
-              <FaTimes />
-            ) : (
-              <FaBars />
-            )}
+            {mobileMenu ? <FaTimes /> : <FaBars />}
           </button>
+
         </div>
+
       </div>
     </nav>
   );

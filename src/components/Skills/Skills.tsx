@@ -20,6 +20,14 @@ import {
 // Стили
 import "./Skills.scss";
 
+// Уровни вместо процентов
+const getLevel = (value: number) => {
+  if (value >= 90) return "Senior";
+  if (value >= 80) return "Middle+";
+  if (value >= 70) return "Middle";
+  return "Junior+";
+};
+
 // Компонент Skills
 function Skills() {
   // Данные навыков
@@ -29,49 +37,41 @@ function Skills() {
       level: 85,
       icon: <FaReact />,
     },
-
     {
       name: "TypeScript",
       level: 75,
       icon: <SiTypescript />,
     },
-
     {
       name: "JavaScript",
       level: 85,
       icon: <FaJs />,
     },
-
     {
       name: "HTML5",
       level: 95,
       icon: <FaHtml5 />,
     },
-
     {
       name: "CSS3 / SCSS",
       level: 90,
       icon: <FaCss3Alt />,
     },
-
     {
       name: "SASS",
       level: 85,
       icon: <SiSass />,
     },
-
     {
       name: "Git / GitHub",
       level: 80,
       icon: <FaGitAlt />,
     },
-
     {
       name: "Vue.js",
       level: 70,
       icon: <FaVuejs />,
     },
-
     {
       name: "Vite",
       level: 75,
@@ -82,7 +82,8 @@ function Skills() {
   return (
     <section id="skills" className="skills">
       <div className="container">
-        {/* Заголовок секции */}
+
+        {/* Заголовок */}
         <motion.div
           className="section-header"
           initial={{ opacity: 0, y: 40 }}
@@ -95,54 +96,45 @@ function Skills() {
           </p>
 
           <h2 className="section-title">
-            Технологии и инструменты,
-            с которыми я работаю
+            Уровень владения технологиями
+            (Junior → Senior)
           </h2>
         </motion.div>
 
-        {/* Grid навыков */}
+        {/* Grid */}
         <div className="skills-grid">
           {skills.map((skill, index) => (
             <motion.div
               key={skill.name}
               className="skill-card glass-card"
-              initial={{
-                opacity: 0,
-                y: 40,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{
                 duration: 0.5,
                 delay: index * 0.1,
               }}
               viewport={{ once: true }}
             >
-              {/* Верх карточки */}
+              {/* TOP */}
               <div className="skill-top">
-                {/* Иконка */}
                 <div className="skill-icon">
                   {skill.icon}
                 </div>
 
-                {/* Название */}
                 <div>
                   <h3>{skill.name}</h3>
 
-                  <p>
-                    Уровень владения
+                  <p className="skill-level-text">
+                    {getLevel(skill.level)}
                   </p>
                 </div>
 
-                {/* Процент */}
-                <span className="skill-percent">
-                  {skill.level}%
+                <span className="skill-level-badge">
+                  {getLevel(skill.level)}
                 </span>
               </div>
 
-              {/* Progress bar */}
+              {/* PROGRESS */}
               <div className="progress-bar">
                 <motion.div
                   className="progress-line"

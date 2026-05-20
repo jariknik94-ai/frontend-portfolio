@@ -1,393 +1,281 @@
+// Swiper (мобильный слайдер)
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+
 // React hooks
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Анимации
 import { motion } from "framer-motion";
 
 // Иконки
-import {
-  FaGithub,
-  FaExternalLinkAlt,
-} from "react-icons/fa";
+import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
-// Modal
+// Axios (HTTP запросы)
+import axios from "axios";
+
+// Модальное окно проекта
 import ProjectModal from "../ProjectModal/ProjectModal";
 
 // Стили
 import "./Projects.scss";
 
-// Тип проекта
-interface Project {
+/**
+ * ===== ТИП ПРОЕКТА (GitHub API) =====
+ * Используется для типизации данных репозиториев
+ */
+export interface Project {
   id: number;
-
-  title: string;
-
-  category: string;
-
-  description: string;
-
-  technologies: string[];
-
-  github: string;
-
-  demo: string;
+  name: string;
+  description: string | null;
+  html_url: string;
+  homepage: string | null;
+  language: string | null;
+}
+// Тип ответа GitHub API (минимально нужные поля)
+interface GitHubRepo {
+  id: number;
+  name: string;
+  description: string | null;
+  html_url: string;
+  homepage: string | null;
+  language: string | null;
 }
 
-// Компонент Projects
+// Компонент проектов
 function Projects() {
-  // Активная категория
-  const [activeFilter, setActiveFilter] =
-    useState("React");
+  // ===== STATE =====
 
-  // Активный проект
-  const [selectedProject, setSelectedProject] =
-    useState<Project | null>(null);
+  // список проектов (репозитории GitHub)
+  const [projects, setProjects] = useState<Project[]>([]);
 
-  // Состояние модального окна
-  const [isModalOpen, setIsModalOpen] =
-    useState(false);
+  // состояние загрузки
+  const [loading, setLoading] = useState(true);
 
-  // Данные проектов
-  const projects: Project[] = [
-    {
-      id: 1,
+  // активный фильтр (язык проекта)
+  const [activeFilter, setActiveFilter] = useState<string>("");
 
-      title: "Weather App",
+  // выбранный проект для модального окна
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-      category: "React",
+  // состояние открытия модального окна
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-      description:
-        "Современное погодное приложение с API, прогнозом погоды, адаптивным интерфейсом и glassmorphism дизайном.",
+  // ===== ЗАГРУЗКА ДАННЫХ С GITHUB =====
+  useEffect(() => {
+    const fetchRepos = async () => {
+      try {
+        setLoading(true);
 
-      technologies: [
-        "React",
-        "TypeScript",
-        "SCSS",
-        "API",
-        "Vite",
-      ],
+        const response = await axios.get(
+          "https://api.github.com/users/jariknik94-ai/repos"
+        );
 
-      github:
-        "https://github.com/jariknik94-ai/weather-app",
+        // Приводим данные API к нашему типу Project
+        const formatted: Project[] = response.data.map((repo: GitHubRepo) => ({
+          id: repo.id,
+          name: repo.name,
+          description: repo.description || "No description",
+          html_url: repo.html_url,
+          homepage: repo.homepage,
+          language: repo.language || "Other",
+        }));
 
-      demo: "#",
-    },
+        // Сохраняем проекты
+        setProjects(formatted);
 
-    {
-      id: 2,
+        /**
+         * ===== ВАЖНО =====
+         * Устанавливаем первую категорию СРАЗУ здесь,
+         * чтобы НЕ использовать useEffect (и не ловить ESLint error)
+         */
+        const firstLanguage =
+          Array.from(
+            new Set(formatted.map((p) => p.language).filter(Boolean))
+          )[0] || "Other";
 
-      title: "Vue Hooks Homework",
+        setActiveFilter(firstLanguage);
+      } catch (error) {
+        console.error("GitHub API error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      category: "Vue",
+    fetchRepos();
+  }, []);
 
-      description:
-        "Проект на Vue.js с использованием Composition API, реактивности и современных frontend-подходов.",
-
-      technologies: [
-        "Vue.js",
-        "Composition API",
-        "JavaScript",
-        "SCSS",
-      ],
-
-      github:
-        "https://github.com/jariknik94-ai/vue-hooks-homework",
-
-      demo: "#",
-    },
-
-    {
-      id: 3,
-
-      title: "Vuetify Dashboard UI",
-
-      category: "Vue",
-
-      description:
-        "Современная dashboard-панель с Vuetify, адаптивным layout и анимациями интерфейса.",
-
-      technologies: [
-        "Vue",
-        "Vuetify",
-        "SCSS",
-        "UI/UX",
-      ],
-
-      github:
-        "https://github.com/jariknik94-ai/vuetify-app",
-
-      demo: "#",
-    },
-
-    {
-      id: 4,
-
-      title: "Redis Todo App",
-
-      category: "Backend",
-
-      description:
-        "CRUD приложение с использованием Redis для хранения данных и Node.js backend архитектуры.",
-
-      technologies: [
-        "Node.js",
-        "Redis",
-        "Express",
-        "CRUD",
-      ],
-
-      github:
-        "https://github.com/jariknik94-ai/redis-todo-app",
-
-      demo: "#",
-    },
-
-    {
-      id: 5,
-
-      title: "WebSocket Todo App",
-
-      category: "Backend",
-
-      description:
-        "Realtime приложение с использованием WebSocket для мгновенного обновления данных.",
-
-      technologies: [
-        "WebSocket",
-        "Node.js",
-        "Express",
-        "Realtime",
-      ],
-
-      github:
-        "https://github.com/jariknik94-ai/websocket-todo-app",
-
-      demo: "#",
-    },
-
-    {
-      id: 6,
-
-      title: "Socket.IO Todo",
-
-      category: "Fullstack",
-
-      description:
-        "Fullstack приложение с Socket.IO, Redis и realtime синхронизацией задач.",
-
-      technologies: [
-        "Socket.IO",
-        "Redis",
-        "Express",
-        "Node.js",
-      ],
-
-      github:
-        "https://github.com/jariknik94-ai/socketio_todo",
-
-      demo: "#",
-    },
-
-    {
-      id: 7,
-
-      title: "Nginx Reverse Proxy",
-
-      category: "DevOps",
-
-      description:
-        "Настройка backend-инфраструктуры с использованием Nginx reverse proxy и Linux окружения.",
-
-      technologies: [
-        "Nginx",
-        "Linux",
-        "Node.js",
-        "Proxy",
-      ],
-
-      github:
-        "https://github.com/jariknik94-ai/backend-nginx",
-
-      demo: "#",
-    },
-
-    {
-      id: 8,
-
-      title: "Vue Portfolio App",
-
-      category: "Vue",
-
-      description:
-        "Адаптивное SPA приложение на Vue.js с современным интерфейсом и компонентной архитектурой.",
-
-      technologies: [
-        "Vue.js",
-        "SCSS",
-        "Responsive",
-        "SPA",
-      ],
-
-      github:
-        "https://github.com/jariknik94-ai/my-vue-app",
-
-      demo: "#",
-    },
-  ];
-
-  // Категории фильтрации
-  const filters = [
-    "React",
-    "Vue",
-    "Backend",
-    "Fullstack",
-    "DevOps",
-  ];
-
-  // Фильтрация проектов
-  const filteredProjects = projects.filter(
-    (project) =>
-      project.category === activeFilter
+  // ===== ФИЛЬТРЫ (уникальные языки) =====
+  const filters = Array.from(
+    new Set(
+      projects
+        .map((p) => p.language)
+        .filter((lang): lang is string => Boolean(lang))
+    )
   );
 
+  // ===== ФИЛЬТРАЦИЯ ПРОЕКТОВ =====
+  const filteredProjects = projects.filter(
+    (project) => project.language === activeFilter
+  );
+
+  // ===== LOADING UI =====
+  if (loading) {
+    return (
+      <section className="projects">
+        <div className="container">
+          <p style={{ textAlign: "center" }}>Загрузка проектов...</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section
-      id="projects"
-      className="projects"
-    >
+    <section id="projects" className="projects">
       <div className="container">
-        {/* Заголовок */}
+        {/* ===== HEADER ===== */}
         <motion.div
           className="section-header"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
         >
-          <p className="section-subtitle">
-            ПРОЕКТЫ
-          </p>
-
-          <h2 className="section-title">
-            Примеры выполненных проектов
-          </h2>
+          <p className="section-subtitle">ПРОЕКТЫ</p>
+          <h2 className="section-title">GitHub репозитории</h2>
         </motion.div>
 
-        {/* Фильтры */}
+        {/* ===== ФИЛЬТРЫ ===== */}
         <div className="project-filters">
           {filters.map((filter) => (
             <button
               key={filter}
               className={`filter-btn ${
-                activeFilter === filter
-                  ? "active-filter"
-                  : ""
+                activeFilter === filter ? "active-filter" : ""
               }`}
-              onClick={() =>
-                setActiveFilter(filter)
-              }
+              onClick={() => setActiveFilter(filter)}
             >
               {filter}
             </button>
           ))}
         </div>
 
-        {/* Grid проектов */}
+        {/* ===== GRID (DESKTOP) ===== */}
         <div className="projects-grid">
-          {filteredProjects.map(
-            (project, index) => (
-              <motion.div
-                key={project.id}
-                className="project-card glass-card"
-                initial={{
-                  opacity: 0,
-                  y: 40,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                transition={{
-                  duration: 0.6,
-                  delay: index * 0.15,
-                }}
-                viewport={{ once: true }}
-              >
-                {/* Верхняя часть */}
-                <div className="project-image">
-                  <div className="project-overlay">
-                    {/* Кнопки */}
-                    <div className="project-links">
+          {filteredProjects.map((project) => (
+            <motion.div
+              key={project.id}
+              className="project-card glass-card"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+            >
+              {/* ===== IMAGE BLOCK ===== */}
+              <div className="project-image">
+                <div className="project-overlay">
+                  <div className="project-links">
+                    <a
+                      href={project.html_url}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <FaGithub />
+                    </a>
+
+                    {project.homepage && (
                       <a
-                        href={project.github}
+                        href={project.homepage}
                         target="_blank"
                         rel="noreferrer"
                       >
-                        <FaGithub />
-                      </a>
-
-                      <a
-                        href={project.demo}
-                      >
                         <FaExternalLinkAlt />
                       </a>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Контент */}
-                <div className="project-content">
-                  {/* Категория */}
-                  <span className="project-category">
-                    {project.category}
-                  </span>
-
-                  {/* Название */}
-                  <h3>{project.title}</h3>
-
-                  {/* Описание */}
-                  <p>
-                    {project.description}
-                  </p>
-
-                  {/* Технологии */}
-                  <div className="project-tech">
-                    {project.technologies.map(
-                      (tech) => (
-                        <span key={tech}>
-                          {tech}
-                        </span>
-                      )
                     )}
                   </div>
-
-                  {/* Кнопка */}
-                  <button
-                    className="project-btn"
-                    aria-label={`Подробнее о проекте ${project.title}`}
-                    onClick={() => {
-                      setSelectedProject(
-                        project
-                      );
-
-                      setIsModalOpen(true);
-                    }}
-                  >
-                    Подробнее
-                  </button>
                 </div>
-              </motion.div>
-            )
-          )}
+              </div>
+
+              {/* ===== CONTENT ===== */}
+              <div className="project-content">
+                <span className="project-category">
+                  {project.language}
+                </span>
+
+                <h3>{project.name}</h3>
+
+                <p>{project.description}</p>
+
+                <button
+                  className="project-btn"
+                  onClick={() => {
+                    setSelectedProject(project);
+                    setIsModalOpen(true);
+                  }}
+                >
+                  Подробнее
+                </button>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* ===== MOBILE SLIDER ===== */}
+        <div className="projects-slider">
+          <Swiper spaceBetween={20} slidesPerView={1.1}>
+            {filteredProjects.map((project) => (
+              <SwiperSlide key={project.id}>
+                <div className="project-card glass-card">
+                  <div className="project-image">
+                    <div className="project-overlay">
+                      <div className="project-links">
+                        <a
+                          href={project.html_url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <FaGithub />
+                        </a>
+
+                        {project.homepage && (
+                          <a
+                            href={project.homepage}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <FaExternalLinkAlt />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="project-content">
+                    <span className="project-category">
+                      {project.language}
+                    </span>
+
+                    <h3>{project.name}</h3>
+
+                    <p>{project.description}</p>
+
+                    <button
+                      className="project-btn"
+                      onClick={() => {
+                        setSelectedProject(project);
+                        setIsModalOpen(true);
+                      }}
+                    >
+                      Подробнее
+                    </button>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
 
-      {/* Модальное окно */}
+      {/* ===== MODAL ===== */}
       <ProjectModal
         isOpen={isModalOpen}
-        onClose={() =>
-          setIsModalOpen(false)
-        }
+        onClose={() => setIsModalOpen(false)}
         project={selectedProject}
       />
     </section>

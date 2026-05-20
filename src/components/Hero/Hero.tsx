@@ -1,129 +1,131 @@
-// Анимации
+// Анимации Framer Motion для появления элементов
 import { motion } from "framer-motion";
 
-// Иконки
-import {
-  FaGithub,
-  FaTelegram,
-} from "react-icons/fa";
+// Иконки соцсетей
+import { FaGithub, FaTelegram } from "react-icons/fa";
 
-// Стили
+// Стили компонента
 import "./Hero.scss";
 
-// Hero section
+/**
+ * Hero — главный экран портфолио
+ * Здесь формируется первое впечатление о разработчике
+ */
 function Hero() {
   return (
-    <section id="home" className="hero">
-      {/* Glow background */}
-      <div className="hero-blur hero-blur-1"></div>
-      <div className="hero-blur hero-blur-2"></div>
+    // Главная секция (якорь для скролла)
+    <section id="home" className="hero" aria-label="Главный экран портфолио">
+
+      {/* Декоративные фоновые glow-элементы */}
+      <div className="hero-blur hero-blur-1" />
+      <div className="hero-blur hero-blur-2" />
 
       <div className="container hero-container">
-        {/* Левая часть */}
+
+        {/* Левая часть — текст и CTA */}
         <motion.div
           className="hero-content"
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          {/* Badge */}
+
+          {/* Роль / бейдж */}
           <div className="hero-badge glass-card">
             Frontend Developer
           </div>
 
-          {/* Заголовок */}
+          {/* Основной заголовок */}
           <h1 className="hero-title">
-            Создаю современные
-            <span> веб-интерфейсы</span>
+            Создаю современные <span>веб-интерфейсы</span>
           </h1>
 
           {/* Описание */}
           <p className="hero-description">
-            Frontend-разработчик, специализирующийся
-            на React, TypeScript и создании современных,
-            адаптивных и интерактивных веб-приложений
-            с качественным UI/UX дизайном.
+            Frontend-разработчик, специализирующийся на React и TypeScript.
+            Создаю адаптивные, интерактивные интерфейсы с акцентом на UX/UI.
           </p>
 
-          {/* Кнопки */}
+          {/* CTA кнопки (главное действие + вторичное) */}
           <div className="hero-buttons">
-            <button className="btn btn-primary">
-              Мои проекты
-            </button>
 
-            <button className="btn hero-outline-btn">
+            {/* Основное действие (главная цель страницы) */}
+            <a
+              href="#projects"
+              className="btn btn-primary"
+              aria-label="Перейти к проектам"
+            >
+              Посмотреть проекты
+            </a>
+
+            {/* Вторичное действие */}
+            <a
+              href="#contact"
+              className="btn hero-outline-btn"
+              aria-label="Перейти к форме контакта"
+            >
               Связаться
-            </button>
+            </a>
+
           </div>
 
           {/* Социальные сети */}
-          <div className="hero-socials">
+          <div className="hero-socials" aria-label="Социальные сети">
+
             <a
               href="https://github.com/jariknik94-ai"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
+              aria-label="GitHub профиль"
             >
               <FaGithub />
             </a>
 
-            <a href="https://t.me/bikkoper" 
-            target="_blank" 
-            rel="noreferrer">
+            <a
+              href="https://t.me/bikkoper"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Telegram профиль"
+            >
               <FaTelegram />
             </a>
+
           </div>
+
         </motion.div>
 
-        {/* Правая карточка */}
+        {/* Правая часть — декоративный code блок */}
         <motion.div
           className="hero-card glass-card"
           initial={{ opacity: 0, x: 80 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1 }}
         >
+
           <div className="code-window">
-            {/* Верхняя панель */}
+
+            {/* Верхняя панель (как в IDE) */}
             <div className="window-top">
-              <span></span>
-              <span></span>
-              <span></span>
+              <span />
+              <span />
+              <span />
             </div>
 
-            {/* Код */}
+            {/* Код-представление профиля */}
             <div className="code-content">
-              <p>
-                const developer = {"{"}
-              </p>
-
-              <p>
-                &nbsp;&nbsp;имя:
-                "Ярослав",
-              </p>
-
-              <p>
-                &nbsp;&nbsp;стек:
-                ["React", "TypeScript"],
-              </p>
-
-              <p>
-                &nbsp;&nbsp;направление:
-                "Frontend",
-              </p>
-
-              <p>
-                &nbsp;&nbsp;интерес:
-                "UI/UX",
-              </p>
-
-              <p>
-                &nbsp;&nbsp;статус:
-                "Open to work"
-              </p>
-
+              <p>const developer = {"{"}</p>
+              <p>&nbsp;&nbsp;name: "Ярослав",</p>
+              <p>&nbsp;&nbsp;stack: ["React", "TypeScript"],</p>
+              <p>&nbsp;&nbsp;role: "Frontend Developer",</p>
+              <p>&nbsp;&nbsp;focus: "UI/UX",</p>
+              <p>&nbsp;&nbsp;status: "Open to work"</p>
               <p>{"};"}</p>
             </div>
+
           </div>
+
         </motion.div>
+
       </div>
     </section>
   );

@@ -1,78 +1,72 @@
-/* Hero section */
+/* 
+   HERO SECTION
+   Главный экран портфолио
+ */
+
 .hero {
   position: relative;
-
   min-height: 100vh;
-
   display: flex;
   align-items: center;
-
   overflow: hidden;
 }
 
-/* Контейнер */
+/* Контейнер сетки */
 .hero-container {
   display: grid;
-
   grid-template-columns: 1fr 1fr;
-
-  align-items: center;
-
   gap: 60px;
+  align-items: center;
 }
 
-/* Glow background */
+/* 
+   GLASS / GLOW BACKGROUND
+ */
+
 .hero-blur {
   position: absolute;
-
   border-radius: 50%;
-
   filter: blur(120px);
-
   opacity: 0.22;
-
   pointer-events: none;
 }
 
 .hero-blur-1 {
-  width: 300px;
-  height: 300px;
-
+  width: 320px;
+  height: 320px;
   background: var(--accent-color);
-
   top: 10%;
-  left: -100px;
+  left: -120px;
 }
 
 .hero-blur-2 {
-  width: 400px;
-  height: 400px;
-
+  width: 420px;
+  height: 420px;
   background: var(--secondary-color);
-
   bottom: -150px;
-  right: -100px;
+  right: -120px;
 }
 
-/* Badge */
+/* 
+   BADGE
+ */
+
 .hero-badge {
   display: inline-block;
-
   padding: 12px 20px;
-
   margin-bottom: 30px;
-
   font-weight: 600;
 }
 
-/* Заголовок */
+/* 
+   TITLE
+   (адаптивный + современный)
+ */
+
 .hero-title {
-  font-size: 5rem;
-
+  font-size: clamp(2.5rem, 5vw, 5rem);
   line-height: 1.1;
-
   margin-bottom: 30px;
-
   color: var(--text-color);
 
   span {
@@ -81,152 +75,186 @@
       var(--accent-color),
       var(--secondary-color)
     );
-
     -webkit-background-clip: text;
-
-    -webkit-text-fill-color:
-      transparent;
+    -webkit-text-fill-color: transparent;
   }
 }
 
-/* Описание */
+/* 
+   DESCRIPTION
+ */
+
 .hero-description {
   font-size: 1.2rem;
-
   line-height: 1.8;
-
   max-width: 600px;
-
   opacity: 0.8;
-
   margin-bottom: 40px;
-
-  color: var(--text-color);
 }
 
-/* Кнопки */
+/* 
+   CTA BUTTONS
+ */
+
 .hero-buttons {
   display: flex;
-
   gap: 20px;
-
   margin-bottom: 40px;
 }
 
-/* Outline button */
-.hero-outline-btn {
-  background: transparent;
-
-  border: 1px solid
-    var(--border-color);
-
-  color: var(--text-color);
+/* Главная кнопка (gradient + glow) */
+.btn-primary {
+  background: linear-gradient(
+    135deg,
+    var(--accent-color),
+    var(--secondary-color)
+  );
+  border: none;
+  color: white;
+  transition: 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 
   &:hover {
-    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-3px);
+    filter: brightness(1.1);
   }
 }
 
-/* Socials */
+/* Вторичная кнопка (glass effect) */
+.hero-outline-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+  color: var(--text-color);
+  transition: 0.3s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* 
+   SOCIAL ICONS
+ */
+
 .hero-socials {
   display: flex;
-
   gap: 20px;
 
   a {
-    width: 50px;
-    height: 50px;
-
+    width: 52px;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 50%;
-
-    background: rgba(255, 255, 255, 0.05);
-
-    color: var(--text-color);
-
-    font-size: 1.2rem;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 
     transition: 0.3s ease;
 
     &:hover {
-      transform: translateY(-5px);
-
+      transform: translateY(-6px) scale(1.05);
       background: linear-gradient(
         135deg,
         var(--accent-color),
         var(--secondary-color)
       );
-
       color: white;
     }
   }
 }
 
-/* Правая карточка */
+/* 
+   RIGHT CARD (CODE WINDOW)
+ */
+
 .hero-card {
   padding: 30px;
-
   max-width: 500px;
-
   margin-left: auto;
 }
 
-/* Код */
+/* окно кода */
 .code-window {
-  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 20px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
 }
 
-/* Верх окна */
+/* верх окна (как IDE) */
 .window-top {
   display: flex;
-
   gap: 10px;
-
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 
   span {
-    width: 14px;
-    height: 14px;
-
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
 
-    &:nth-child(1) {
-      background: #ff5f56;
-    }
-
-    &:nth-child(2) {
-      background: #ffbd2e;
-    }
-
-    &:nth-child(3) {
-      background: #27c93f;
-    }
+    &:nth-child(1) { background: #ff5f56; }
+    &:nth-child(2) { background: #ffbd2e; }
+    &:nth-child(3) { background: #27c93f; }
   }
 }
 
-/* Контент кода */
+/* текст кода */
 .code-content {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 12px;
-
   font-family: monospace;
-
-  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
   p {
-    color: var(--text-color);
-
     opacity: 0.9;
   }
 }
 
-/* Планшеты */
+/* 
+   RESPONSIVE
+ */
+
+
+ .btn {
+  transition: 0.3s ease;
+  border-radius: 14px;
+  padding: 14px 22px;
+  font-weight: 600;
+}
+
+/* primary */
+.btn-primary {
+  background: linear-gradient(
+    135deg,
+    var(--accent-color),
+    var(--secondary-color)
+  );
+
+  color: white;
+  border: none;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* outline */
+.hero-outline-btn {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-3px);
+  }
+}
 @media (max-width: 992px) {
   .hero-container {
     grid-template-columns: 1fr;
@@ -235,20 +263,11 @@
   .hero-card {
     margin: 0 auto;
   }
-
-  .hero-title {
-    font-size: 4rem;
-  }
 }
 
-/* Телефоны */
 @media (max-width: 768px) {
   .hero {
     padding-top: 120px;
-  }
-
-  .hero-title {
-    font-size: 3rem;
   }
 
   .hero-buttons {

@@ -1,63 +1,64 @@
 // React hooks
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-// Иконки
+// Icons
 import {
   FaMoon,
   FaSun,
 } from "react-icons/fa";
 
-// Стили
+// Styles
 import "./ThemeToggle.scss";
 
-// Компонент переключения темы
+// Получение стартовой темы
+const getInitialTheme = () => {
+  const savedTheme =
+    localStorage.getItem("theme");
+
+  // Проверка сохраненной темы
+  const isDark =
+    savedTheme === "dark";
+
+  // Сразу применяем класс
+  if (isDark) {
+    document.documentElement.classList.add(
+      "dark-theme"
+    );
+  }
+
+  return isDark;
+};
+
+// Theme toggle component
 function ThemeToggle() {
   // State темы
   const [darkMode, setDarkMode] =
-    useState(false);
-
-  // Проверяем сохраненную тему
-  useEffect(() => {
-    const savedTheme =
-      localStorage.getItem("theme");
-
-    // Если dark
-    if (savedTheme === "dark") {
-      setDarkMode(true);
-
-      // Добавляем класс на HTML
-      document.documentElement.classList.add(
-        "dark-theme"
-      );
-    }
-  }, []);
+    useState(getInitialTheme);
 
   // Переключение темы
   const toggleTheme = () => {
+    // Новое значение темы
     const newTheme = !darkMode;
 
+    // Обновляем state
     setDarkMode(newTheme);
 
-    // Если dark
+    // Обновляем DOM
     if (newTheme) {
       document.documentElement.classList.add(
         "dark-theme"
-      );
-
-      localStorage.setItem(
-        "theme",
-        "dark"
       );
     } else {
       document.documentElement.classList.remove(
         "dark-theme"
       );
-
-      localStorage.setItem(
-        "theme",
-        "light"
-      );
     }
+
+    // Сохраняем тему
+    localStorage.setItem(
+      "theme",
+      newTheme ? "dark" : "light"
+    );
   };
 
   return (
