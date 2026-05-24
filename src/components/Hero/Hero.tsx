@@ -114,7 +114,7 @@ function Hero() {
             {/* Код-представление профиля */}
             <div className="code-content">
               <p>const developer = {"{"}</p>
-              <p>&nbsp;&nbsp;name: "Ярослав",</p>
+              <p>&nbsp;&nbsp;name: "Yaroslav",</p>
               <p>&nbsp;&nbsp;stack: ["React", "TypeScript"],</p>
               <p>&nbsp;&nbsp;role: "Frontend Developer",</p>
               <p>&nbsp;&nbsp;focus: "UI/UX",</p>

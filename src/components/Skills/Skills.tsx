@@ -25,7 +25,8 @@ const getLevel = (value: number) => {
   if (value >= 90) return "Senior";
   if (value >= 80) return "Middle+";
   if (value >= 70) return "Middle";
-  return "Junior+";
+  if (value >= 60) return "Junior+";
+  return "Junior";
 };
 
 // Компонент Skills
@@ -34,47 +35,47 @@ function Skills() {
   const skills = [
     {
       name: "React",
-      level: 85,
+      level: 58,
       icon: <FaReact />,
     },
     {
       name: "TypeScript",
-      level: 75,
+      level: 60,
       icon: <SiTypescript />,
     },
     {
       name: "JavaScript",
-      level: 85,
+      level: 55,
       icon: <FaJs />,
     },
     {
       name: "HTML5",
-      level: 95,
+      level: 65,
       icon: <FaHtml5 />,
     },
     {
       name: "CSS3 / SCSS",
-      level: 90,
+      level: 65,
       icon: <FaCss3Alt />,
     },
     {
       name: "SASS",
-      level: 85,
+      level: 50,
       icon: <SiSass />,
     },
     {
       name: "Git / GitHub",
-      level: 80,
+      level: 75,
       icon: <FaGitAlt />,
     },
     {
       name: "Vue.js",
-      level: 70,
+      level: 55,
       icon: <FaVuejs />,
     },
     {
       name: "Vite",
-      level: 75,
+      level: 45,
       icon: <SiVite />,
     },
   ];

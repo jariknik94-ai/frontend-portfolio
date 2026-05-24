@@ -21,7 +21,7 @@ import ProjectModal from "../ProjectModal/ProjectModal";
 import "./Projects.scss";
 
 /**
- * ===== ТИП ПРОЕКТА (GitHub API) =====
+ *  ТИП ПРОЕКТА (GitHub API) 
  * Используется для типизации данных репозиториев
  */
 export interface Project {
@@ -44,7 +44,7 @@ interface GitHubRepo {
 
 // Компонент проектов
 function Projects() {
-  // ===== STATE =====
+  //  STATE 
 
   // список проектов (репозитории GitHub)
   const [projects, setProjects] = useState<Project[]>([]);
@@ -61,7 +61,7 @@ function Projects() {
   // состояние открытия модального окна
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // ===== ЗАГРУЗКА ДАННЫХ С GITHUB =====
+  //  ЗАГРУЗКА ДАННЫХ С GITHUB 
   useEffect(() => {
     const fetchRepos = async () => {
       try {
@@ -85,7 +85,6 @@ function Projects() {
         setProjects(formatted);
 
         /**
-         * ===== ВАЖНО =====
          * Устанавливаем первую категорию СРАЗУ здесь,
          * чтобы НЕ использовать useEffect (и не ловить ESLint error)
          */
@@ -105,7 +104,7 @@ function Projects() {
     fetchRepos();
   }, []);
 
-  // ===== ФИЛЬТРЫ (уникальные языки) =====
+  //  ФИЛЬТРЫ (уникальные языки) 
   const filters = Array.from(
     new Set(
       projects
@@ -114,12 +113,12 @@ function Projects() {
     )
   );
 
-  // ===== ФИЛЬТРАЦИЯ ПРОЕКТОВ =====
+  //  ФИЛЬТРАЦИЯ ПРОЕКТОВ 
   const filteredProjects = projects.filter(
     (project) => project.language === activeFilter
   );
 
-  // ===== LOADING UI =====
+  //  LOADING UI 
   if (loading) {
     return (
       <section className="projects">
@@ -133,7 +132,7 @@ function Projects() {
   return (
     <section id="projects" className="projects">
       <div className="container">
-        {/* ===== HEADER ===== */}
+        {/*  HEADER  */}
         <motion.div
           className="section-header"
           initial={{ opacity: 0, y: 40 }}
@@ -143,7 +142,7 @@ function Projects() {
           <h2 className="section-title">GitHub репозитории</h2>
         </motion.div>
 
-        {/* ===== ФИЛЬТРЫ ===== */}
+        {/*  ФИЛЬТРЫ  */}
         <div className="project-filters">
           {filters.map((filter) => (
             <button
@@ -158,7 +157,7 @@ function Projects() {
           ))}
         </div>
 
-        {/* ===== GRID (DESKTOP) ===== */}
+        {/*  GRID (DESKTOP)  */}
         <div className="projects-grid">
           {filteredProjects.map((project) => (
             <motion.div
@@ -167,7 +166,7 @@ function Projects() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
             >
-              {/* ===== IMAGE BLOCK ===== */}
+              {/*  IMAGE BLOCK  */}
               <div className="project-image">
                 <div className="project-overlay">
                   <div className="project-links">
@@ -216,7 +215,7 @@ function Projects() {
           ))}
         </div>
 
-        {/* ===== MOBILE SLIDER ===== */}
+        {/*  MOBILE SLIDER  */}
         <div className="projects-slider">
           <Swiper spaceBetween={20} slidesPerView={1.1}>
             {filteredProjects.map((project) => (
@@ -272,7 +271,7 @@ function Projects() {
         </div>
       </div>
 
-      {/* ===== MODAL ===== */}
+      {/*  MODAL  */}
       <ProjectModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

@@ -1,72 +1,97 @@
-/* 
-   HERO SECTION
-   Главный экран портфолио
- */
+/* HERO SECTION Главный экран портфолио */
 
 .hero {
   position: relative;
+
   min-height: 100vh;
+
   display: flex;
   align-items: center;
+
   overflow: hidden;
 }
 
-/* Контейнер сетки */
+/*  GRID CONTAINER */
+
 .hero-container {
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
   gap: 60px;
+
   align-items: center;
 }
 
-/* 
-   GLASS / GLOW BACKGROUND
- */
+/* BACKGROUND GLOW */
 
 .hero-blur {
   position: absolute;
+
   border-radius: 50%;
+
   filter: blur(120px);
+
   opacity: 0.22;
+
   pointer-events: none;
 }
 
+/* Верхний glow */
 .hero-blur-1 {
   width: 320px;
   height: 320px;
+
   background: var(--accent-color);
+
   top: 10%;
   left: -120px;
 }
 
+/* Нижний glow */
 .hero-blur-2 {
   width: 420px;
   height: 420px;
+
   background: var(--secondary-color);
+
   bottom: -150px;
   right: -120px;
 }
 
-/* 
-   BADGE
- */
+/* HERO CONTENT */
+
+.hero-content {
+  position: relative;
+
+  z-index: 2;
+}
+
+/* BADGE */
 
 .hero-badge {
   display: inline-block;
+
   padding: 12px 20px;
+
   margin-bottom: 30px;
+
   font-weight: 600;
+
+  border-radius: 14px;
 }
 
-/* 
-   TITLE
-   (адаптивный + современный)
- */
+/* TITLE */
 
 .hero-title {
-  font-size: clamp(2.5rem, 5vw, 5rem);
-  line-height: 1.1;
+  font-size: clamp(2.8rem, 5vw, 5rem);
+
+  line-height: 1.08;
+
   margin-bottom: 30px;
+
+  letter-spacing: -2px;
+
   color: var(--text-color);
 
   span {
@@ -75,186 +100,205 @@
       var(--accent-color),
       var(--secondary-color)
     );
+
     -webkit-background-clip: text;
+
     -webkit-text-fill-color: transparent;
   }
 }
 
-/* 
-   DESCRIPTION
- */
+/*  DESCRIPTION */
 
 .hero-description {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  max-width: 600px;
-  opacity: 0.8;
+  max-width: 620px;
+
   margin-bottom: 40px;
+
+  font-size: 1.15rem;
+
+  line-height: 1.9;
+
+  color: var(--muted-text);
 }
 
-/* 
-   CTA BUTTONS
- */
+/*  BUTTONS */
 
 .hero-buttons {
   display: flex;
+
   gap: 20px;
+
   margin-bottom: 40px;
 }
 
-/* Главная кнопка (gradient + glow) */
+/* Основная кнопка */
 .btn-primary {
   background: linear-gradient(
     135deg,
     var(--accent-color),
     var(--secondary-color)
   );
-  border: none;
+
   color: white;
-  transition: 0.3s ease;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+
+  border: none;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 
   &:hover {
-    transform: translateY(-3px);
-    filter: brightness(1.1);
+    transform: translateY(-4px);
+
+    filter: brightness(1.08);
   }
 }
 
-/* Вторичная кнопка (glass effect) */
+/* Outline кнопка */
 .hero-outline-btn {
   background: rgba(255, 255, 255, 0.04);
+
   border: 1px solid var(--border-color);
-  backdrop-filter: blur(10px);
+
   color: var(--text-color);
-  transition: 0.3s ease;
+
+  backdrop-filter: blur(12px);
 
   &:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
+
     background: rgba(255, 255, 255, 0.08);
   }
 }
 
-/* 
-   SOCIAL ICONS
- */
+/* SOCIALS */
 
 .hero-socials {
   display: flex;
-  gap: 20px;
+
+  gap: 18px;
 
   a {
-    width: 52px;
-    height: 52px;
+    width: 54px;
+    height: 54px;
+
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.05);
+
     border: 1px solid rgba(255, 255, 255, 0.08);
+
+    color: var(--text-color);
+
+    font-size: 1.2rem;
 
     transition: 0.3s ease;
 
     &:hover {
       transform: translateY(-6px) scale(1.05);
+
       background: linear-gradient(
         135deg,
         var(--accent-color),
         var(--secondary-color)
       );
+
       color: white;
     }
   }
 }
 
-/* 
-   RIGHT CARD (CODE WINDOW)
- */
+/* RIGHT CODE CARD */
 
 .hero-card {
+  position: relative;
+
   padding: 30px;
-  max-width: 500px;
+
+  max-width: 520px;
+
   margin-left: auto;
 }
 
-/* окно кода */
+/* Контейнер "окна кода" */
 .code-window {
   background: rgba(255, 255, 255, 0.03);
+
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 20px;
+
+  border-radius: 20px;
+
+  padding: 24px;
+
   backdrop-filter: blur(12px);
+
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
 }
 
-/* верх окна (как IDE) */
+/* Верхняя панель окна */
 .window-top {
   display: flex;
+
   gap: 10px;
-  margin-bottom: 20px;
+
+  margin-bottom: 24px;
 
   span {
     width: 12px;
     height: 12px;
+
     border-radius: 50%;
 
-    &:nth-child(1) { background: #ff5f56; }
-    &:nth-child(2) { background: #ffbd2e; }
-    &:nth-child(3) { background: #27c93f; }
+    &:nth-child(1) {
+      background: #ff5f56;
+    }
+
+    &:nth-child(2) {
+      background: #ffbd2e;
+    }
+
+    &:nth-child(3) {
+      background: #27c93f;
+    }
   }
 }
 
-/* текст кода */
+/* Контент кода */
 .code-content {
-  font-family: monospace;
   display: flex;
+
   flex-direction: column;
-  gap: 10px;
+
+  gap: 12px;
+
+  font-family: monospace;
 
   p {
     opacity: 0.9;
+
+    line-height: 1.6;
+
+    color: var(--text-color);
   }
 }
 
-/* 
-   RESPONSIVE
- */
+/*  COMMON BUTTON STYLE */
 
+.btn {
+  padding: 14px 24px;
 
- .btn {
-  transition: 0.3s ease;
   border-radius: 14px;
-  padding: 14px 22px;
+
   font-weight: 600;
+
+  transition: 0.3s ease;
 }
 
-/* primary */
-.btn-primary {
-  background: linear-gradient(
-    135deg,
-    var(--accent-color),
-    var(--secondary-color)
-  );
+/*  RESPONSIVE */
 
-  color: white;
-  border: none;
-
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-  }
-}
-
-/* outline */
-.hero-outline-btn {
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: transparent;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.06);
-    transform: translateY(-3px);
-  }
-}
+/* Планшеты */
 @media (max-width: 992px) {
   .hero-container {
     grid-template-columns: 1fr;
@@ -263,8 +307,21 @@
   .hero-card {
     margin: 0 auto;
   }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero-description {
+    margin: 0 auto 40px;
+  }
+
+  .hero-socials {
+    justify-content: center;
+  }
 }
 
+/* Телефоны */
 @media (max-width: 768px) {
   .hero {
     padding-top: 120px;
@@ -274,15 +331,15 @@
     flex-direction: column;
   }
 
-  .hero-socials {
-    justify-content: center;
+  .hero-title {
+    letter-spacing: -1px;
   }
 
-  .hero-content {
-    text-align: center;
+  .hero-card {
+    padding: 0;
   }
 
-  .hero-description {
-    margin: 0 auto 40px;
+  .code-window {
+    padding: 20px;
   }
 }
